@@ -1,9 +1,10 @@
 var Dispatcher = require('./Dispatcher').Dispatcher
 
-//var gpio = require('rpi-gpio');
+var rpio = require('rpio');
 
 // Setup each pin that is available
-// gpio.setup(7, gpio.DIR_OUT, write);
+rpio.open(11, rpio.OUTPUT, rpio.LOW);
+console.log('Pin 11 is currently set ' + (rpio.read(11) ? 'high' : 'low'));
 
 Dispatcher
   .filter(e => e.action === 'CHANGE_LIGHT')
@@ -17,9 +18,5 @@ Dispatcher
 // }
 
 function write(state) {
-  console.log("ATTEMPT TO WRITE LIGHT " + state.id + " to " + state.on)
-    // gpio.write(state.id, state.on, function(err) {
-    //     if (err) throw err;
-    //     console.log('Written to pin');
-    // });
+  rpio.write(state.id, state.on ? rpio.HIGH : rpio.LOW)
 }

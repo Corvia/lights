@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "express": "^4.16.2",
-    "rpi-gpio": "^0.9.1",
+    "rpio": "^0.9.19",
     "rxjs": "^5.5.2",
     "socket.io": "^2.0.4"
   }
