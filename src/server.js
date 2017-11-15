@@ -10,22 +10,21 @@ let rpio = require('rpio');
 // which has it's own requirement: prepend any var names wishing to be used in a
 // CRA project with `REACT_APP_`. Our backend does not use react, but we put up
 // with this naming convention to keep frontend config by the book.
-const BACKEND_HOST = process.env.REACT_APP_LIGHTS_BACKEND_HOST;
-const BACKEND_PORT = process.env.REACT_APP_LIGHTS_BACKEND_PORT;
 const DEBUG = process.env.REACT_APP_LIGHTS_DEBUG === 'true' ? true : false
-const PIN_LIST = JSON.parse(process.env.REACT_APP_LIGHTS_PIN_LIST);
+const HOST = process.env.REACT_APP_LIGHTS_BACKEND_HOST;
+const PORT = process.env.REACT_APP_LIGHTS_BACKEND_PORT;
 
 // Setup an Rx Dispatcher
 const Dispatcher = new Rx.ReplaySubject(1, Rx.Scheduler.queue);
 
 // Verbose console logging for debugging purposes
 if (DEBUG) {
-  console.log(`DEBUG MODE IS ACTIVE\nBackend address: http://${BACKEND_HOST}:${BACKEND_PORT}`);
+  console.log(`DEBUG MODE IS ACTIVE\nBackend address: http://${HOST}:${PORT}`);
   Dispatcher.subscribe(event => console.log(event));
 }
 
 // Setup each pin that is available
-PIN_LIST.forEach(function(pin) {
+JSON.parse(process.env.REACT_APP_LIGHTS_PIN_LIST).forEach(function(pin) {
   rpio.open(pin, rpio.OUTPUT, rpio.LOW);
 });
 
@@ -57,4 +56,4 @@ io.on('connection', function (socket) {
 });
 
 // Attach HTTP server to an unregistered (high-numbered) port
-server.listen(BACKEND_PORT);
+server.listen(PORT);

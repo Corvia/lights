@@ -1,0 +1,14 @@
+#! /bin/sh
+
+### BEGIN INIT INFO
+# Provides:          light-sockers
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Simple script to start node server for light sockets project
+### END INIT INFO
+
+cd /home/pi/lights
+/usr/local/bin/yarn server
+exit 0
