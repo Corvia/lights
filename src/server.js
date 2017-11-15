@@ -9,7 +9,7 @@ let rpio = require('rpio');
 // Variables pulled in from env vars. We share these vars with the frontend
 // which has it's own requirement: prepend any var names wishing to be used in a
 // CRA project with `REACT_APP_`. Our backend does not use react, but we put up
-// with this naming convention to keep frontend config by the book.
+// with this naming convention to keep frontend config by-the-book.
 const DEBUG = process.env.REACT_APP_LIGHTS_DEBUG === 'true' ? true : false
 const HOST = process.env.REACT_APP_LIGHTS_BACKEND_HOST;
 const PORT = process.env.REACT_APP_LIGHTS_BACKEND_PORT;
