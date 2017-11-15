@@ -1,0 +1,32 @@
+.App {
+  margin: auto;
+  width: 80%;
+  text-align: center;
+  font-family: Helvetica, sans-serif;
+}
+.App ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+button {
+  user-select: none;
+  margin: 5px;
+  padding: 20px 23px;
+  color: #4f4e4e;
+  border: none;
+  border-radius: 18px;
+  outline: none;
+  background: #e9e9e9;
+  font-size: 2em;
+  transition: margin 80ms, padding 80ms;
+  transition-timing-function: ease-in-out;
+}
+button:active {
+  border: none;
+  color: #c7c7c7;
+  background: #3b3b3b;
+  margin: 0;
+  padding: 25px 28px;
+  outline: none;
+}
