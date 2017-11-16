@@ -7,11 +7,12 @@ import './Client.css';
 // Variables pulled in from env vars. We share these vars with the backend.
 const BACKEND_HOST = process.env.REACT_APP_LIGHTS_BACKEND_HOST;
 const BACKEND_PORT = process.env.REACT_APP_LIGHTS_BACKEND_PORT;
+const CLIENT_PORT = process.env.REACT_APP_LIGHTS_CLIENT_PORT;
 const DEBUG = process.env.REACT_APP_LIGHTS_DEBUG === 'true' ? true : false
 const PIN_LIST = JSON.parse(process.env.REACT_APP_LIGHTS_PIN_LIST);
 
 // Create a socket connection to the backend
-let socket = io.connect(`http://${BACKEND_HOST}:${BACKEND_PORT}`);
+let socket = io.connect(`http://${BACKEND_HOST}:${CLIENT_PORT}`);
 
 // Verbose console logging for debugging purposes
 if (DEBUG) {

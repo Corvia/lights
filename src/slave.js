@@ -1,9 +1,7 @@
 require('dotenv').config();
 
 let Rx = require('rxjs');
-let app = require('express')();
-let server = require('http').Server(app);
-let io = require('socket.io')(server);
+let io = require('socket.io-client')
 let rpio = require('rpio');
 
 // Variables pulled in from env vars. We share these vars with the frontend
@@ -13,6 +11,10 @@ let rpio = require('rpio');
 const DEBUG = process.env.REACT_APP_LIGHTS_DEBUG === 'true' ? true : false
 const HOST = process.env.REACT_APP_LIGHTS_BACKEND_HOST;
 const PORT = process.env.REACT_APP_LIGHTS_BACKEND_PORT;
+const SLAVE_PORT = process.env.REACT_APP_LIGHTS_SLAVE_PORT;
+
+// Create a socket connection to the backend
+let socket = io.connect(`http://${HOST}:${SLAVE_PORT}`);
 
 // Setup an Rx Dispatcher
 const Dispatcher = new Rx.ReplaySubject(1, Rx.Scheduler.queue);
@@ -43,17 +45,8 @@ function write(state) {
   );
 }
 
-// Socked-based connection and listener for each connected client
-io.on('connection', function (socket) {
-  if (DEBUG) {
-    console.log('Client Connected');
-  }
-  socket.emit('connected', {});
-  socket.on('CHANGE_LIGHT', function (state) {
-    Dispatcher.next({ action: 'CHANGE_LIGHT', value: state });
-    io.emit('LIGHT', state);
-  });
+socket.on('LIGHT', function (state) {
+  console.log("TESTERERER")
+  Dispatcher.next({ action: 'CHANGE_LIGHT', value: state });
+  //io.emit('LIGHT', state);
 });
-
-// Attach HTTP server to an unregistered (high-numbered) port
-server.listen(PORT);
