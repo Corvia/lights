@@ -24,7 +24,7 @@ if (DEBUG) {
   });
 }
 
-export default function App() {
+export default function Client() {
 
   // Set GPIO Pin state (HIGH or LOW)
   const setPin = (pin, state) => (
@@ -38,10 +38,12 @@ export default function App() {
     <div className="App">
 
       <div className="header">
-        <FontAwesome name="angle-left" />
-        <img src="./logo.png" className="logo" alt="easttroy.org" />
+        <a href="https://easttroy.org/">
+          <FontAwesome name="angle-left" />
+          <img src="./logo.png" className="logo" alt="easttroy.org" />
+        </a>
         <div className="project-name">
-          Village Square Lights <FontAwesome name="info-circle" fixedWidth />
+          Village Square Lights
         </div>
       </div>
 
@@ -64,6 +66,13 @@ export default function App() {
           <li><a href="#">Become a Sponsor <FontAwesome name="angle-right" /></a></li>
         </ul>
       </div>
+
+      <p className="footer">Village Square Lights is a collaboration between the East Troy Area Chamber of Commerce, East Troy Computer Club and Corvia Technologies, LLC. </p>
+      <p className="footer">
+        <a href="https://github.com/Corvia/lights" target="_blank" rel="noopener noreferrer">
+        <FontAwesome name="heart" fixedWidth /> Let's build cool stuff together
+        </a>
+      </p>
 
     </div>
   );

@@ -21,6 +21,9 @@ body {
 .App .header {
   margin-bottom: 20px;
   padding: 12px 0 0 10px;
+}
+.App .header a {
+  text-decoration: none;
   color: #6e6e6e;
 }
 .App .header .fa-angle-left {
@@ -31,9 +34,8 @@ body {
 }
 .App .header .project-name {
   position: relative;
-  top: 9px;
+  top: 8px;
   right: 10px;
-  font-size: 13px;
   color: #eeeeee;
   float: right;
 }
@@ -62,7 +64,7 @@ body {
 }
 .App .more a {
   text-decoration: none;
-  color: #d73dbf;
+  color: #b53ea3;
 }
 .App .more a .fa {
   position: relative;
@@ -70,6 +72,16 @@ body {
   float: right;
   color: #4a4a4a;
   font-size: 1.4em;
+}
+
+.App .footer {
+  margin: 10px 15px;
+  font-size: 0.9em;
+  color: #444444;
+}
+.App .footer a {
+  color: #3eb56e;
+  text-decoration: none;
 }
 
 button {
