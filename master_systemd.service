@@ -1,0 +1,12 @@
+[Unit]
+Description=lights master daemon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/lights
+ExecStart=/usr/bin/yarn master
+
+[Install]
+WantedBy=multi-user.target
