@@ -45,7 +45,6 @@ function write(state) {
 }
 
 socket.on('LIGHT', function (state) {
-  console.log("TESTERERER")
   Dispatcher.next({ action: 'CHANGE_LIGHT', value: state });
   // io.emit('LIGHT', state);
 });
