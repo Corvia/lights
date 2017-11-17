@@ -1,25 +1,81 @@
 body {
-  background: black;
-}
-
-.App {
-  margin: auto;
-  width: 80%;
-  text-align: center;
+  margin: 0;
+  background: #000;
   font-family: Helvetica, sans-serif;
 }
+
 .App ul {
   list-style-type: none;
   padding: 0;
 }
+.App .logo {
+  position: relative;
+  top: 1px;
+  width: 135px;
+  margin-left: 10px;
+}
+.App .header {
+  margin-bottom: 20px;
+  padding: 12px 0 0 10px;
+  color: #6e6e6e;
+}
+.App .header .fa-angle-left {
+  position: relative;
+  top: -2px;
+  line-height: 1em;
+  font-size: 2em;
+}
+.App .header .project-name {
+  position: relative;
+  top: 9px;
+  right: 10px;
+  font-size: 13px;
+  color: #eeeeee;
+  float: right;
+}
+.App .pads {
+  margin: auto;
+  text-align: center;
+}
+.App .pads label {
+  display: block;
+  margin-left: 10px;
+  margin-bottom: 8px;
+  text-align: left;
+  color: #1be2fe;
+}
+
+.App .more ul {
+  list-style-type: none;
+  padding: 0;
+}
+.App .more li {
+  padding: 10px 5px 10px 15px;
+  border-top: 1px solid #171717;
+}
+.App .more li:last-child {
+  border-bottom: 1px solid #171717;
+}
+.App .more a {
+  text-decoration: none;
+  color: #d73dbf;
+}
+.App .more a .fa {
+  position: relative;
+  top: -1px;
+  float: right;
+  color: #4a4a4a;
+  font-size: 1.4em;
+}
 
 button {
   user-select: none;
-  margin: 5px;
+  margin: 3px;
   padding: 20px 23px;
+  width: 23%;
   color: #717171;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
   outline: none;
   background: #282828;
   font-size: 2em;
@@ -30,7 +86,5 @@ button:active {
   border: none;
   color: #c7c7c7;
   background: #3b3b3b;
-  margin: 0;
-  padding: 25px 28px;
   outline: none;
 }
