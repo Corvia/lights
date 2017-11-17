@@ -11,7 +11,9 @@ const DEBUG = process.env.REACT_APP_LIGHTS_DEBUG === 'true' ? true : false
 const PIN_LIST = JSON.parse(process.env.REACT_APP_LIGHTS_PIN_LIST);
 
 // Create a socket connection to the backend
-let socket = io.connect(`http://${BACKEND_HOST}:${CLIENT_PORT}`);
+let socket = io.connect(DEBUG
+  ? `http://${BACKEND_HOST}:${CLIENT_PORT}`
+  : `https://${BACKEND_HOST}`);
 
 // Verbose console logging for debugging purposes
 if (DEBUG) {
@@ -33,11 +35,6 @@ export default function App() {
   return (
     <div className="App">
 
-      <h1>Light Sockets</h1>
-
-      <p>A reactive, socket-powered switch board to set GPIO pins HIGH/LOW on Raspberry Pi.</p>
-
-      <h3>Momentary Switches</h3>
       {_.map(PIN_LIST, pin => (
         <button
           key={pin}
@@ -47,16 +44,6 @@ export default function App() {
           {pin}
         </button>
       ))}
-
-      <h4>Other Switch Types (TODO)</h4>
-      <ul>
-        <li>Toggle Switches</li>
-        <li>Selector (Rotary/Level) Switches</li>
-        <li>Joystick Switch</li>
-        <li>Pressure Switch</li>
-        <li>Temperature Switch</li>
-        <li>Proximity Switch</li>
-      </ul>
 
     </div>
   );
