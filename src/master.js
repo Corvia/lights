@@ -9,7 +9,6 @@ let app = require('express')();
 // with this naming convention to keep frontend config by-the-book.
 const DEBUG = process.env.REACT_APP_LIGHTS_DEBUG === 'true' ? true : false
 const HOST = process.env.REACT_APP_LIGHTS_BACKEND_HOST;
-const PORT = process.env.REACT_APP_LIGHTS_BACKEND_PORT;
 const CLIENT_PORT = process.env.REACT_APP_LIGHTS_CLIENT_PORT;
 const SLAVE_PORT = process.env.REACT_APP_LIGHTS_SLAVE_PORT;
 
@@ -24,7 +23,7 @@ if (DEBUG) {
 
 /***************** CLIENT *********************/
 
-//Client connections
+// Client connections
 let client = require('http').Server(app);
 let clientIO = require('socket.io')(client);
 
@@ -43,7 +42,7 @@ client.listen(CLIENT_PORT);
 
 /******************* SLAVE *********************/
 
-//Slave connections
+// Slave connections
 let slave = require('http').Server(app);
 let slaveIO = require('socket.io')(slave);
 

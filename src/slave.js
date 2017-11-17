@@ -10,7 +10,6 @@ let rpio = require('rpio');
 // with this naming convention to keep frontend config by-the-book.
 const DEBUG = process.env.REACT_APP_LIGHTS_DEBUG === 'true' ? true : false
 const HOST = process.env.REACT_APP_LIGHTS_BACKEND_HOST;
-const PORT = process.env.REACT_APP_LIGHTS_BACKEND_PORT;
 const SLAVE_PORT = process.env.REACT_APP_LIGHTS_SLAVE_PORT;
 
 // Create a socket connection to the backend
@@ -21,7 +20,7 @@ const Dispatcher = new Rx.ReplaySubject(1, Rx.Scheduler.queue);
 
 // Verbose console logging for debugging purposes
 if (DEBUG) {
-  console.log(`DEBUG MODE IS ACTIVE\nBackend address: http://${HOST}:${PORT}`);
+  console.log(`DEBUG MODE IS ACTIVE\nBackend address: http://${HOST}:${SLAVE_PORT}`);
   Dispatcher.subscribe(event => console.log(event));
 }
 
@@ -48,5 +47,5 @@ function write(state) {
 socket.on('LIGHT', function (state) {
   console.log("TESTERERER")
   Dispatcher.next({ action: 'CHANGE_LIGHT', value: state });
-  //io.emit('LIGHT', state);
+  // io.emit('LIGHT', state);
 });

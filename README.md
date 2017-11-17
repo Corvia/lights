@@ -34,7 +34,6 @@ By default, the config stored in the `.env` file will be used. Adjust them to yo
 
 ```
 export REACT_APP_DEBUG='true'
-export REACT_APP_LIGHTS_BACKEND_PORT='8001'
 export REACT_APP_LIGHTS_PIN_LIST='[11, 15, 16]'  # Pin position number
 ```
 
