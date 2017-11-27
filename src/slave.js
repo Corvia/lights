@@ -71,7 +71,7 @@ const doBurst$ = SlaveDispatches$
   .filter(e => e.action === 'BURST_LIGHT')
   .flatMap(e => Rx.Observable.from(PINS)
     .map(pin => ({ id: pin, on: e.value.state.on }))
-    .zip(Rx.Observable.interval(10))
+    .zip(Rx.Observable.interval(5))
     .map(e => e[0]))
   .do(e => write(e));
 
