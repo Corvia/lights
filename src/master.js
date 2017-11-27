@@ -56,7 +56,6 @@ slaveIO.on('connection', function (socket) {
 // Update slave when light pressed
 Dispatcher
   .filter(e => e.action === 'CHANGE_LIGHT')
-  .debounceTime(10)
   .do(e => slaveIO.emit('LIGHT', e.value))
   .subscribe();
 

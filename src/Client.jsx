@@ -28,10 +28,14 @@ export default function Client() {
 
   // Set GPIO Pin state (HIGH or LOW)
   const setPin = (pin, state) => (
-    e => socket.emit('CHANGE_LIGHT', {
-      id: pin,
-      on: state === 'low' ? true : false
-    })
+    e => {
+      socket.emit('CHANGE_LIGHT', {
+        id: pin,
+        on: state === 'low' ? true : false
+      })
+      e.stopPropagation()
+      e.preventDefault()
+    }
   );
 
   return (
