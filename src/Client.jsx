@@ -95,6 +95,12 @@ export default function Client() {
         >
           BURST
         </button>
+        <button
+          onMouseDown={spiralLight('BEN_BOX', 'low')} onTouchStart={spiralLight('BEN_BOX', 'low')}
+          onMouseUp={spiralLight('BEN_BOX', 'high')} onTouchEnd={spiralLight('BEN_BOX', 'high')}
+        >
+          SPIRAL
+        </button>
       </div>
 
       <div className="pads">
