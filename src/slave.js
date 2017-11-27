@@ -32,7 +32,7 @@ JSON.parse(process.env.REACT_APP_LIGHTS_PIN_LIST).forEach(function(pin) {
 // Update GPIO state when the associated action is observed
 Dispatcher
   .filter(e => e.action === 'CHANGE_LIGHT')
-  .throttleTime(50)
+  .throttleTime(10)
   .subscribe(e => write(e.value));
 
 // Set the state of a GPIO pin or, if not running on a pi, will automatically
