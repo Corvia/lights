@@ -10,7 +10,9 @@ import './Client.css';
 const BACKEND_HOST = process.env.REACT_APP_LIGHTS_BACKEND_HOST;
 const CLIENT_PORT = process.env.REACT_APP_LIGHTS_CLIENT_PORT;
 const DEBUG = process.env.REACT_APP_LIGHTS_DEBUG === 'true' ? true : false
-const PIN_LIST = JSON.parse(process.env.REACT_APP_LIGHTS_PIN_LIST);
+
+const BEN_PINS = JSON.parse('[11, 15, 16, 18, 22, 32, 36, 38]')
+const JAMIE_PINS = JSON.parse('[8, 10, 12, 16, 18, 22, 24, 26]')
 
 // Create a socket connection to the backend
 let socket = io.connect(DEBUG
@@ -27,16 +29,41 @@ if (DEBUG) {
 export default function Client() {
 
   // Set GPIO Pin state (HIGH or LOW)
-  const setPin = (pin, state) => (
+  const setLight = (slave, pin, state) => (
     e => {
       socket.emit('CHANGE_LIGHT', {
-        id: pin,
-        on: state === 'low' ? true : false
+        slave: slave,
+        state: {
+          id: pin,
+          on: state === 'low' ? true : false
+        }
       })
       e.stopPropagation()
       e.preventDefault()
     }
   );
+
+  const burstLight = (slave, state) => e => {
+    socket.emit('BURST_LIGHT', {
+      slave: slave,
+      state: {
+        on: state === 'low' ? true : false
+      }
+    })
+    e.stopPropagation()
+    e.preventDefault()
+  }
+
+  const spiralLight = (slave, state) => e => {
+    socket.emit('SPIRAL_LIGHT', {
+      slave: slave,
+      state: {
+        on: state === 'low' ? true : false
+      }
+    })
+    e.stopPropagation()
+    e.preventDefault()
+  }
 
   return (
     <div className="App">
@@ -52,16 +79,47 @@ export default function Client() {
       </div>
 
       <div className="pads">
-        <label><FontAwesome name="map-marker" fixedWidth /> Ben's Office</label>
-        {_.map(PIN_LIST, pin => (
+        <label><FontAwesome name="map-marker" fixedWidth /> B's Office</label>
+        {_.map(BEN_PINS, pin => (
           <button
             key={pin}
-            onMouseDown={setPin(pin, 'low')} onTouchStart={setPin(pin, 'low')}
-            onMouseUp={setPin(pin, 'high')} onTouchEnd={setPin(pin, 'high')}
+            onMouseDown={setLight('BEN_BOX', pin, 'low')} onTouchStart={setLight('BEN_BOX', pin, 'low')}
+            onMouseUp={setLight('BEN_BOX', pin, 'high')} onTouchEnd={setLight('BEN_BOX', pin, 'high')}
           >
             {pin}
           </button>
         ))}
+        <button
+          onMouseDown={burstLight('BEN_BOX', 'low')} onTouchStart={burstLight('BEN_BOX', 'low')}
+          onMouseUp={burstLight('BEN_BOX', 'high')} onTouchEnd={burstLight('BEN_BOX', 'high')}
+        >
+          BURST
+        </button>
+      </div>
+
+      <div className="pads">
+        <label><FontAwesome name="map-marker" fixedWidth /> J's Office</label>
+        {_.map(JAMIE_PINS, pin => (
+          <button
+            key={pin}
+            onMouseDown={setLight('JAMIE_BOX', pin, 'low')} onTouchStart={setLight('JAMIE_BOX', pin, 'low')}
+            onMouseUp={setLight('JAMIE_BOX', pin, 'high')} onTouchEnd={setLight('JAMIE_BOX', pin, 'high')}
+          >
+            {pin}
+          </button>
+        ))}
+        <button
+          onMouseDown={burstLight('JAMIE_BOX', 'low')} onTouchStart={burstLight('JAMIE_BOX', 'low')}
+          onMouseUp={burstLight('JAMIE_BOX', 'high')} onTouchEnd={burstLight('JAMIE_BOX', 'high')}
+        >
+          BURST
+        </button>
+        <button
+          onMouseDown={spiralLight('JAMIE_BOX', 'low')} onTouchStart={spiralLight('JAMIE_BOX', 'low')}
+          onMouseUp={spiralLight('JAMIE_BOX', 'high')} onTouchEnd={spiralLight('JAMIE_BOX', 'high')}
+        >
+          SPIRAL
+        </button>
       </div>
 
       <div className="more">

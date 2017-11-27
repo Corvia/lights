@@ -35,6 +35,12 @@ clientIO.on('connection', function (socket) {
   socket.on('CHANGE_LIGHT', function (state) {
     Dispatcher.next({ action: 'CHANGE_LIGHT', value: state });
   });
+  socket.on('BURST_LIGHT', function (state) {
+    Dispatcher.next({ action: 'BURST_LIGHT', value: state });
+  });
+  socket.on('SPIRAL_LIGHT', function (state) {
+    Dispatcher.next({ action: 'SPIRAL_LIGHT', value: state });
+  });
 });
 
 // Attach HTTP server to an unregistered (high-numbered) port
@@ -56,7 +62,19 @@ slaveIO.on('connection', function (socket) {
 // Update slave when light pressed
 Dispatcher
   .filter(e => e.action === 'CHANGE_LIGHT')
-  .do(e => slaveIO.emit('LIGHT', e.value))
+  .do(e => slaveIO.emit('CHANGE_LIGHT', e.value))
+  .subscribe();
+
+// Update slave when light pressed
+Dispatcher
+  .filter(e => e.action === 'BURST_LIGHT')
+  .do(e => slaveIO.emit('BURST_LIGHT', e.value))
+  .subscribe();
+
+// Update slave when light pressed
+Dispatcher
+  .filter(e => e.action === 'SPIRAL_LIGHT')
+  .do(e => slaveIO.emit('SPIRAL_LIGHT', e.value))
   .subscribe();
 
 // Attach HTTP server to an unregistered (high-numbered) port
