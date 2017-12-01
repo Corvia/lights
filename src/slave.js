@@ -57,18 +57,30 @@ socket.on('SPIRAL_LIGHT', function (state) {
 // Listen for only this slave
 const SlaveDispatches$ = Dispatcher
   .filter(e => e.value.slave === SLAVE_NAME)
-  .throttleTime(10)
 
 // Mode: Light Change
 // Stream of light changes
-const doChange$ = SlaveDispatches$
+const lightChanges$ = SlaveDispatches$
   .filter(e => e.action === 'CHANGE_LIGHT')
+
+const lightChangeOn$ = lightChanges$
+  .filter(e => e.value.state.on)
+  .groupBy(e => e.value.state.id)
+  .mergeMap(group => group.throttleTime(10))
+
+const lightChangeOff$ = lightChanges$
+  .filter(e => !e.value.state.on)
+
+const doChange$ = lightChangeOn$
+  .merge(lightChangeOff$)
+  .distinctUntilChanged((a, b) =>  JSON.stringify(a) === JSON.stringify(b) )
   .do(e => write(e.value.state));
 
 // Mode: Light Burst
 // Stream of light bursts
 const doBurst$ = SlaveDispatches$
   .filter(e => e.action === 'BURST_LIGHT')
+  .throttleTime(10)
   .flatMap(e => Rx.Observable.from(PINS)
     .map(pin => ({ id: pin, on: e.value.state.on }))
     .zip(Rx.Observable.interval(10))
@@ -86,7 +98,8 @@ const spiralOff$ = spiral$
 
 // Stream of spirals
 const doSpiral$ = spiral$
-    .filter(e => e.value.state.on === true)
+    .filter(e => e.value.state.on)
+    .throttleTime(10)
     .switchMap(e => Rx.Observable.interval(200)
       .map(num => PINS[num % 8])
       .map(pin => ({ id: pin, on: true }))
